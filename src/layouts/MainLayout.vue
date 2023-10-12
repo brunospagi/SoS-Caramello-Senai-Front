@@ -139,7 +139,7 @@ export default {
       links1: [
         { icon: 'web', text: 'Cadastre Um Regaste', name: 'NovoChamado' },
         { icon: 'person', text: 'Sobre o SOS Caramelo', name: '' },
-        { icon: 'star_border', text: 'Ajude Nossa Causa', name: '' },
+        { icon: 'star_border', text: 'Ajude Nossa Causa', name: 'AjudeNossaCausa' },
         { icon: 'search', text: 'Conscientize-se', name: '' }
       ],
       links2: [
