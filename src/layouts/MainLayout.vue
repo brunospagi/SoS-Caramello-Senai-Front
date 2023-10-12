@@ -20,30 +20,11 @@
         <q-space />
 
   <div class="q-pa-md q-gutter-sm">
-    <q-btn color="white" text-color="black" label="Standard" />
-    <q-btn color="primary" label="Primary" />
-    <q-btn color="secondary" label="Secondary" />
+    <q-btn color="white" text-color="black" label="BOTÃO 1" />
+    <q-btn color="primary" label="BOTÃO 2" />
+    <q-btn color="secondary" label="BOTÃO 3" />
   </div>
-
         <q-space />
-
-        <div class="q-gutter-sm row items-center no-wrap">
-          <q-btn v-if="$q.screen.gt.sm" round dense flat color="text-grey-7" icon="apps">
-            <q-tooltip>Google Apps</q-tooltip>
-          </q-btn>
-          <q-btn round dense flat color="grey-8" icon="notifications">
-            <q-badge color="red" text-color="white" floating>
-              2
-            </q-badge>
-            <q-tooltip>Notifications</q-tooltip>
-          </q-btn>
-          <q-btn round flat>
-            <q-avatar size="26px">
-              <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-            </q-avatar>
-            <q-tooltip>Account</q-tooltip>
-          </q-btn>
-        </div>
       </q-toolbar>
     </q-header>
 
@@ -56,7 +37,7 @@
     >
       <q-scroll-area class="fit">
         <q-list padding class="text-grey-8">
-          <q-item class="GNL__drawer-item" v-ripple v-for="link in links1" :key="link.text" clickable>
+          <q-item class="GNL__drawer-item" v-ripple v-for="link in links1" :key="link.text" clickable @click="redirecionar(link.name)">
             <q-item-section avatar>
               <q-icon :name="link.icon" />
             </q-item-section>
@@ -67,7 +48,7 @@
 
           <q-separator inset class="q-my-sm" />
 
-          <q-item class="GNL__drawer-item" v-ripple v-for="link in links2" :key="link.text" clickable>
+          <q-item class="GNL__drawer-item" v-ripple v-for="link in links2" :key="link.text" clickable @click="redirecionar(link.name)">
             <q-item-section avatar>
               <q-icon :name="link.icon" />
             </q-item-section>
@@ -78,7 +59,7 @@
 
           <q-separator inset class="q-my-sm" />
 
-          <q-item class="GNL__drawer-item" v-ripple v-for="link in links3" :key="link.text" clickable>
+          <q-item class="GNL__drawer-item" v-ripple v-for="link in links3" :key="link.text" clickable @click="redirecionar(link.name)">
             <q-item-section>
               <q-item-label>{{ link.text }} <q-icon v-if="link.icon" :name="link.icon" /></q-item-label>
             </q-item-section>
@@ -105,12 +86,14 @@
 
 <script>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { fasEarthAmericas, fasFlask } from '@quasar/extras/fontawesome-v6'
 
 export default {
   name: 'GoogleNewsLayout',
 
   setup () {
+    const router = useRouter()
     const leftDrawerOpen = ref(false)
     const search = ref('')
     const showAdvanced = ref(false)
@@ -138,6 +121,10 @@ export default {
       leftDrawerOpen.value = !leftDrawerOpen.value
     }
 
+    function redirecionar (name) {
+      router.push(name) // Redireciona para o URL desejado usando o Vue Router do Quasar
+    }
+
     return {
       leftDrawerOpen,
       search,
@@ -150,34 +137,33 @@ export default {
       byDate,
 
       links1: [
-        { icon: 'web', text: 'Cadastar Novo Chamado' },
-        { icon: 'person', text: 'Sobre o SOS Caramelo' },
-        { icon: 'star_border', text: 'Ajude Nossa Causa' },
-        { icon: 'search', text: 'Conscientize-se' }
+        { icon: 'web', text: 'Cadastre Um Regaste', name: 'NovoChamado' },
+        { icon: 'person', text: 'Sobre o SOS Caramelo', name: '' },
+        { icon: 'star_border', text: 'Ajude Nossa Causa', name: '' },
+        { icon: 'search', text: 'Conscientize-se', name: '' }
       ],
       links2: [
-        { icon: 'flag', text: '' },
-        { icon: fasEarthAmericas, text: 'World' },
-        { icon: 'place', text: 'Local' },
-        { icon: 'domain', text: 'Adoçao Responsavel' },
-        { icon: 'memory', text: 'Como Agir' },
-        { icon: 'local_movies', text: 'Nao se cale denuncie' },
-        { icon: 'directions_bike', text: 'Noticias' },
-        { icon: fasFlask, text: 'O que fazemos' },
-        { icon: 'fitness_center', text: 'Ajude Nossa causa ' }
+        { icon: fasEarthAmericas, text: 'Mapa de Chamados', name: 'Mapa' },
+        { icon: 'domain', text: 'Adoçao Responsavel', name: '' },
+        { icon: 'memory', text: 'Como Agir', name: '' },
+        { icon: 'local_movies', text: 'Nao se cale denuncie', name: '' },
+        { icon: 'directions_bike', text: 'Noticias', name: '' },
+        { icon: fasFlask, text: 'O que fazemos', name: '' },
+        { icon: 'fitness_center', text: 'Ajude Nossa causa ', name: '' }
       ],
       links3: [
-        { icon: '', text: 'Language & region' },
-        { icon: '', text: 'Settings' },
-        { icon: 'open_in_new', text: 'Get the Android app' },
-        { icon: 'open_in_new', text: 'Get the iOS app' },
-        { icon: '', text: 'Send feedback' },
-        { icon: 'open_in_new', text: 'Help' }
+        { icon: '', text: 'Language & region', name: '' },
+        { icon: '', text: 'Settings', name: '' },
+        { icon: 'open_in_new', text: 'Get the Android app', name: '' },
+        { icon: 'open_in_new', text: 'Get the iOS app', name: '' },
+        { icon: '', text: 'Send feedback', name: '' },
+        { icon: 'open_in_new', text: 'Help', name: '' }
       ],
 
       onClear,
       changeDate,
-      toggleLeftDrawer
+      toggleLeftDrawer,
+      redirecionar
     }
   }
 }

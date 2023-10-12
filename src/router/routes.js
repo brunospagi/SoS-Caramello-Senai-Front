@@ -5,7 +5,7 @@ const routes = [
     children: [
       { path: '', name: 'PaginaInicial', component: () => import('pages/IndexPage.vue') },
       { path: 'NovoChamado', name: 'NovoChamado', component: () => import('pages/NovoChamado.vue') },
-      { path: 'Map', name: 'Mapa', component: () => import('pages/LMapPage.vue') },
+      { path: 'Mapa', name: 'Mapa', component: () => import('pages/LMapPage.vue') },
       { path: 'Inicio', name: 'inicio', component: () => import('pages/PaginaInicial.vue') }
 
     ]
