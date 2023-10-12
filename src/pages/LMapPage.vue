@@ -8,7 +8,7 @@
 import { ref, onMounted } from 'vue'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
-import axios from 'axios'
+import { api } from 'boot/axios'
 
 export default {
   setup () {
@@ -41,7 +41,7 @@ export default {
         })
       }
 
-      axios.get('http://localhost:3000/chamados')
+      api.get('chamados')
         .then(response => {
           const data = response.data
           // Itere pelos dados e adicione marcadores ao mapa
@@ -64,7 +64,7 @@ export default {
   },
   carregarDadosDaAPI () {
     // Faça uma solicitação GET para a API para obter os dados da tabela
-    axios.get('chamados')
+    api.get('chamados')
       .then(response => {
         const data = response.data
 

@@ -1,7 +1,7 @@
   <template>
   <q-page class="column items-center justify-center">
     <h2>NOVO RESGATE</h2>
-    <q-card class="create-account-card">
+    <q-card>
       <q-separator inset />
       <q-card-section class="column q-gutter-md">
     <q-form @submit="handleSubmit">
@@ -56,7 +56,6 @@ export default defineComponent({
       tipoChamado: '',
       status: 'Novo'
     })
-
     const router = useRouter()
     const handleSubmit = async () => {
       try {
@@ -115,14 +114,47 @@ export default defineComponent({
         })
     },
     selecionarImagem (event) {
+      const TAMANHO_IMAGEM = 300 // Tamanho desejado em pixels (300px, por exemplo)
       const file = event.target.files[0]
       if (file) {
-        // Converte o arquivo de imagem em uma URL de dados (base64) para exibição
         const reader = new FileReader()
-        reader.readAsDataURL(file)
+
         reader.onload = () => {
-          this.form.imagemChamado = reader.result
+          const img = new Image()
+          img.src = reader.result
+
+          img.onload = () => {
+            const canvas = document.createElement('canvas')
+            const ctx = canvas.getContext('2d')
+
+            // Calcula a proporção para redimensionar a imagem mantendo a proporção
+            let proporcao = 1
+            if (img.width > TAMANHO_IMAGEM || img.height > TAMANHO_IMAGEM) {
+              if (img.width > img.height) {
+                proporcao = TAMANHO_IMAGEM / img.width
+              } else {
+                proporcao = TAMANHO_IMAGEM / img.height
+              }
+            }
+
+            // Define o tamanho do canvas com a proporção
+            canvas.width = img.width * proporcao
+            canvas.height = img.height * proporcao
+
+            // Desenha a imagem redimensionada no canvas
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+
+            // Converte o canvas para uma URL de dados (base64)
+            const imagemRedimensionada = canvas.toDataURL('image/jpeg') // Use 'image/png' se desejar formato PNG
+
+            // Define a imagem redimensionada no campo do objeto
+            this.form.imagemChamado = imagemRedimensionada
+          }
+
+          img.src = reader.result
         }
+
+        reader.readAsDataURL(file)
       }
     }
   }
