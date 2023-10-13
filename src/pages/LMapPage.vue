@@ -1,7 +1,16 @@
 <template>
+  <q-page>
   <div>
-    <div id="map" style="height: 900px;"></div>
+    <div id="map" style="height: 682px;"></div>
+    <div class="map-legend">
+        <h4 style="font-size: 14px; margin: 5px 0;">Legenda</h4>
+        <i style="background: red"></i><span style="font-size: 12px; margin: 5px 0;">Novo</span><br>
+        <i style="background: blue"></i><span style="font-size: 12px; margin: 5px 0;">Em Andamento</span><br>
+        <i style="background: yellow"></i><span style="font-size: 12px; margin: 5px 0;">Pendente</span><br>
+        <i style="background: green"></i><span style="font-size: 12px; margin: 5px 0;">Finalizado</span><br>
+      </div>
   </div>
+</q-page>
 </template>
 
 <script>
@@ -20,12 +29,11 @@ export default {
 
       // Adicione um provedor de mapa, por exemplo, o OpenStreetMap
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map.value)
-
       // Ícones personalizados para cada tipo de solicitação
       const iconeStatus = {
         Novo: L.icon({
-          iconUrl: 'https://p7.hiclipart.com/preview/574/8/1014/computer-icons-image-map-location-logo.jpg', // Substitua pelo URL da imagem do marcador verde
-          iconSize: [50, 50]
+          iconUrl: 'pontoazul.png', // Substitua pelo URL da imagem do marcador verde
+          iconSize: [100, 100]
         }),
         EmAndamento: L.icon({
           iconUrl: 'https://p7.hiclipart.com/preview/574/8/1014/computer-icons-image-map-location-logo.jpg', // Substitua pelo URL da imagem do marcador azul
@@ -81,3 +89,31 @@ export default {
 }
 
 </script>
+
+<style scoped>
+/* Estilo para a legenda */
+.map-legend {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: white;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+.map-legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin: 0 8px 0 0;
+  opacity: 0.7;
+}
+
+.map-legend i.icon {
+  background-size: 18px;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+</style>
